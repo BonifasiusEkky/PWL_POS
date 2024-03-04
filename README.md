@@ -8,4 +8,9 @@ A. PENGATURAN DATABASE
 Praktikum 2.1
 ![alt text](image-1.png)
 
-Praktikum 2.2
+Praktikum 4
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
+![alt text](image-4.png)
