@@ -1,4 +1,4 @@
-# Jobsheet 03
+<!-- # Jobsheet 03
 
 ## Bonifasius Ekky Kusumawardhana <br> 2F / 07
 
@@ -36,4 +36,11 @@ Digunakan sebagai parameter placehorder.
 Untuk menentukan nama table dan primary key yang sesuai dengan model tersebut.
 
 12. Menurut kalian, lebih mudah menggunakan mana dalam melakukan operasi CRUD ke database (DB Façade / Query Builder / Eloquent ORM) ? jelaskan
-Menurut saya lebih muda menggunakan DB Facade karena pada DB facade memberikan kontrol langsung atas query yang dijalankan ke database tanpa harus memikirkan struktur model atau ORM
+Menurut saya lebih muda menggunakan DB Facade karena pada DB facade memberikan kontrol langsung atas query yang dijalankan ke database tanpa harus memikirkan struktur model atau ORM -->
+
+# Jobsheet 03
+
+## Bonifasius Ekky Kusumawardhana <br> 2F / 07
+
+Praktikum 
+![alt text](image-5.png)
