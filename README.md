@@ -42,5 +42,12 @@ Menurut saya lebih muda menggunakan DB Facade karena pada DB facade memberikan k
 
 ## Bonifasius Ekky Kusumawardhana <br> 2F / 07
 
-Praktikum 
+Praktikum 1
 ![alt text](image-5.png)
+
+Praktikum 2.1
+![alt text](image-6.png)
+
+![alt text](image-7.png)
+
+![alt text](image-8.png)
