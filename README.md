@@ -70,3 +70,10 @@ Praktikum 2.4
 ![alt text](image-15.png)
 
 Praktikum 2.5
+
+![alt text](image-16.png)
+
+![alt text](image-17.png)
+
+Praktikum 2.6
+
