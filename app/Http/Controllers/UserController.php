@@ -2,29 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\UserModel;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Usermodel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Termwind\Components\Hr;
 
-class UserController extends Controller
+class Usercontroller extends Controller
 {
     public function index()
     {
-        $user = UserModel::create(
-            [
-                'username' => 'manager',
-                'nama' => 'Manager',
-                'password' => Hash::make('12345'),
-                'level_id' => 2,
-            ]);
-            $user->username = 'manager56';
+        $user = Usermodel::all();
+        return view('user', ['data' => $user]);
+    }
+    public function tambah(){
+        return view('user_tambah');
+    }
+    public function ubah($id){
+        $user = UserModel::find($id);
+        return view('user_ubah', ['data' => $user]);
+    }
 
-            $user->save();
-        
-            $user->wasChanged();
-            $user->wasChanged('username');
-            $user->wasChanged('nama');
-            $user->wasChanged(['nama', 'username']);
-            dd($user->wasChanged(['nama', 'username']));
-    }           
+public function ubah_simpan($id, Request $request)
+{
+    $user = Usermodel::find($id);
+
+    $user->username = $request->username;
+    $user->nama = $request->nama;
+    $user->password = Hash::make($request->username);
+    $user->level_id = $request->level_id;
+
+    $user->save();
+
+    return redirect('/user');
+    }
+    public function hapus($id)
+    {
+        $user = Usermodel::find($id);
+        $user->delete();
+
+        return redirect('/user');
+    }
+
 }
+        
