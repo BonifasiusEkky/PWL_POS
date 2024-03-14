@@ -51,3 +51,8 @@ Praktikum 2.1
 ![alt text](image-7.png)
 
 ![alt text](image-8.png)
+
+Praktikum 2.2
+![alt text](image-9.png)
+
+
