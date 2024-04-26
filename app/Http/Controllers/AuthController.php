@@ -73,7 +73,7 @@ class AuthController extends Controller
     public function proses_register(Request $request) { 
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'username' => 'required'|'unique:m_user',
+            'username' => 'required|unique:m_user',
             'password' => 'required'
         ]);
 
