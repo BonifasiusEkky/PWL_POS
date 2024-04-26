@@ -3,9 +3,9 @@
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
-        <h3 class="card=title">{{$page->title}}</h3>
+        <h3 class="card-title">{{$page->title}}</h3>
         <div class="card-tools">
-            {{-- <a href="{{url('stok/create')}}" class="btn btn-sm btn-primary mt-1">Tambah</a> --}}
+             <a href="{{url('stok/create')}}" class="btn btn-sm btn-primary mt-1">Tambah</a>
         </div>
     </div>
     <div class="card-body">
@@ -16,10 +16,10 @@
             <div class="alert alert-danger">{{session('error')}}</div>
         @endif
         <div class="row">
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Filter:</label>
-                    <div class="col-3">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
+                        <div class="col-3">
                         <select name="barang_id" id="barang_id" class="form-control" required>
                             <option value="">- Semua -</option>
                             @foreach($barang as $item)

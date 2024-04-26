@@ -39,9 +39,6 @@ class StokController extends Controller
             $stoks->where('barang_id',$request->barang_id);
         }   
         
-
-                    
-
         return DataTables::of($stoks)
             ->addIndexColumn() // Menambahkan kolom index / no urut (default nmaa kolom: DT_RowINdex)
             ->addColumn('aksi', function ($stok){
@@ -59,42 +56,50 @@ class StokController extends Controller
 
 
 
-    // public function create(){
-    //     $breadcrumb = (object)[
-    //         'title' => 'Tambah Stok',
-    //         'list' => ['Home', 'Stok', 'Tambah']
-    //     ];
-    //     $page = (object)[
-    //         'title' => 'Tambah Stok baru'        
-    //     ];
+    public function create(){
+        $breadcrumb = (object)[
+            'title' => 'Tambah Stok',
+            'list' => ['Home', 'Stok', 'Tambah']
+        ];
+        $page = (object)[
+            'title' => 'Tambah Stok baru'        
+        ];
 
-    //     $user = UserModel::all(); // ambil data untuk filter 
-    //     $barang = BarangModel::all();
-    //     $activeMenu = 'stok'; //set menu yang sedang aktif
+        $user = UserModel::all(); // ambil data untuk filter 
+        $barang = BarangModel::all();
+        $activeMenu = 'stok'; //set menu yang sedang aktif
 
-    //     return view('stok.create', ['breadcrumb'=>$breadcrumb,'page'=>$page, 'user' => $user,'barang'=>$barang, 'activeMenu'=>$activeMenu]);
-    // }
+        return view('stok.create', ['breadcrumb'=>$breadcrumb,'page'=>$page, 'user' => $user,'barang'=>$barang, 'activeMenu'=>$activeMenu]);
+    }
 
 
-    // public function store(Request $request){
-    //     $request->validate([
-    //         'barang_id'       => 'required|integer',
-    //         'user_id'         => 'required|integer',
-    //         'stok_tanggal'    => 'required|date',
-    //         'stok_jumlah'     => 'required|integer',
-    //     ]);
+public function store(Request $request){
+    $request->validate([
+        'barang_id' => 'required',
+        'user_id' => 'required',
+        'stok_jumlah' => 'required'
+    ]);
 
-    //     StokModel::create([
-    //         'barang_id'       => $request->barang_id,
-    //         'user_id'         => $request->user_id,
-    //         'stok_tanggal'    => $request->stok_tanggal,
-    //         'stok_jumlah'     => $request->stok_jumlah,
-    //     ]);
+    // Periksa apakah barang dengan barang_id yang sama sudah ada
+    $existingStok = StokModel::where('barang_id', $request->barang_id)->first();
 
-    //     return redirect('/stok')->with('success', 'Data stok berhasil disimpan');
+    if($existingStok) {
+        // Jika sudah ada, tambahkan jumlah stok baru ke jumlah stok yang sudah ada
+        $existingStok->stok_jumlah += $request->stok_jumlah;
+        $existingStok->save();
+    } else {
+        // Jika belum ada, buat entri baru untuk barang tersebut
+        StokModel::create([
+            'barang_id' => $request->barang_id,
+            'user_id' => $request->user_id,
+            'stok_tanggal' => now(),
+            'stok_jumlah' => $request->stok_jumlah
+        ]);
+    }
 
-        
-    // }
+    return redirect('/stok')->with('success', 'Data stok berhasil disimpan');
+}
+
 
     public function show(string $id){
         $stok = StokModel::with(['user','barang'])->find($id);
@@ -148,20 +153,20 @@ class StokController extends Controller
 
         return redirect('/stok')->with('success', 'Data stok berhasil diubah');
     }
-
     public function destroy(string $id){
-        $check = UserModel::find($id);
-        if(!$check){
-            return redirect('/stok')->with('error','Data stok tidak ditemukan');
-        }
+        $stok = StokModel::find($id);
+
+        if(!$stok){
+        return redirect('/stok')->with('error','Data stok tidak ditemukan');
+         }
 
         try{
-            StokModel::destroy($id); // Hapus data level
-            
+            $stok->delete(); // Hapus data stok
             return redirect('/stok')->with('success', 'Data stok berhasil dihapus');
         }catch(\Illuminate\Database\QueryException $e){
-            // Jika terjadi error ketika menghapus data , redirect kemabli ke halaman dengan membawa pesan error
-            return redirect('/stok')->with('errror', 'Data stok gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+            return redirect('/stok')->with('error', 'Data stok gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
-    }
+}
+
 }

@@ -15,11 +15,11 @@
             @else
                 <form method="POST" action="{{ url('/penjualan/'.$penjualan->penjualan_id) }}" class="form-horizontal">
                     @csrf
-                    {!! method_field('PUT') !!} <!-- tambahkan baris ini untuk proses edit yang butuh method PUT -->
+                    @method('PUT') <!-- Menggunakan helper method untuk PUT -->
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Nama Staff</label>
                         <div class="col-11">
-                            <select class="form-control" id="barang_id" name="barang_id" required>
+                            <select class="form-control" id="user_id" name="user_id" required>
                                 <option value="">- Pilih Staff -</option>
                                 @foreach($user as $item)
                                     <option value="{{ $item->user_id }}" @if($item->user_id == $penjualan->user_id) selected @endif>{{ $item->username }}</option>
@@ -37,8 +37,18 @@
                             @error('pembeli')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
-                        </div>@extends('layouts.template')
-                        <div class="form-group row">
+                        </div>   
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Id Pembelian</label>
+                        <div class="col-11">
+                            <input type="text" class="form-control" id="id_pembelian" name="id_pembelian" value="{{ old('id_pembelian', $penjualan->id_pembelian) }}" required>
+                            @error('id_pembelian') <!-- Memperbaiki error message -->
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
+                        </div> 
+                    </div>
+                    <div class="form-group row">
                         <label class="col-1 control-label col-form-label"></label>
                         <div class="col-11">
                             <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
@@ -46,9 +56,9 @@
                         </div>
                     </div>
                 </form>
-                @endempty
-            </div>
+
         </div>
+    </div>
 @endsection
 @push('css')
 @endpush

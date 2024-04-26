@@ -32,19 +32,34 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 control-label col-form-label">Nama Barang</label>
+                    <label class="col-1 control-label col-form-label">Nama Barang 1</label>
                     <div class="col-11">
-                        <select class="form-control" id="barang_id" name="barang_id" required>
+                        <select class="form-control" id="barang_id_1" name="barang_id[]" required>
                             <option value="">- Pilih Barang -</option>
                             @foreach($barang as $item)
                                 <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
                             @endforeach
                         </select>
-                        @error('barang_id')
+                        @error('barang_id.0')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-1 control-label col-form-label">Nama Barang 2</label>
+                    <div class="col-11">
+                        <select class="form-control" id="barang_id_2" name="barang_id[]" required>
+                            <option value="">- Pilih Barang -</option>
+                            @foreach($barang as $item)
+                                <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
+                            @endforeach
+                        </select>
+                        @error('barang_id.1')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Kode Penjualan</label>
                     <div class="col-11">

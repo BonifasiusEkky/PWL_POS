@@ -10,9 +10,9 @@ class StokModel extends Model
 {
     use HasFactory;
     protected $table = 't_stok';
-    protected $primaryKey = 'stock_id';
+    protected $primaryKey = 'stok_id';
 
-    protected $fillable = ['barang_id','user_id', 'stock_tanggal', 'stock_jumlah'];
+    protected $fillable = ['barang_id','user_id', 'stok_tanggal', 'stok_jumlah'];
 
     public function user(): BelongsTo{
         return $this->belongsTo(UserModel::class, 'user_id', 'user_id');

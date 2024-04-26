@@ -46,7 +46,6 @@ class PenjualanController extends Controller
             ->addIndexColumn() // Menambahkan kolom index / no urut (default nmaa kolom: DT_RowINdex)
             ->addColumn('aksi', function ($penjualan) {
                 $btn = '<a href="' . url('/penjualan/' . $penjualan->penjualan_id) . '" class="btn btn-info btn-sm">Detail</a>';
-                $btn .= '<a href="' . url('/penjualan/' . $penjualan->penjualan_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/penjualan/' . $penjualan->penjualan_id) . '">' . csrf_field() . method_field('DELETE')
                     . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data 
                 ini?\');">Hapus</button></form>';
@@ -60,22 +59,23 @@ class PenjualanController extends Controller
 
 
     public function create()
-    {
-        $breadcrumb = (object)[
-            'title' => 'Tambah Penjualan',
-            'list' => ['Home', 'Penjualan', 'Tambah']
-        ];
-        $page = (object)[
-            'title' => 'Tambah Penjualan baru'
-        ];
+{
+    $breadcrumb = (object)[
+        'title' => 'Tambah Penjualan',
+        'list' => ['Home', 'Penjualan', 'Tambah']
+    ];
+    $page = (object)[
+        'title' => 'Tambah Penjualan baru'
+    ];
 
-        $barang = BarangModel::all();
-        $user = UserModel::all(); // ambil data untuk filter 
+    $barang = BarangModel::all();
+    $user = UserModel::all(); // ambil data untuk filter 
 
-        $activeMenu = 'penjualan'; //set menu yang sedang aktif
+    $activeMenu = 'penjualan'; //set menu yang sedang aktif
 
-        return view('penjualan.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'barang' => $barang, 'activeMenu' => $activeMenu]);
-    }
+    return view('penjualan.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+}
+
 
 
     public function store(Request $request)
@@ -139,14 +139,12 @@ class PenjualanController extends Controller
     {
         $request->validate([
             'penjualan_kode'   => 'required|string|min:4|unique:t_penjualan,penjualan_kode,' . $id . ',penjualan_id',
-            'user_id'         => 'required|integer',
             'penjualan_tanggal'    => 'required|date',
             'pembeli'     => 'required|string|max:100',
         ]);
 
         PenjualanModel::find($id)->update([
             'penjualan_kode'        => $request->penjualan_kode,
-            'user_id'               => $request->user_id,
             'penjualan_tanggal'     => $request->penjualan_tanggal,
             'pembeli'               => $request->pembeli,
         ]);
